@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 import base64
 import hashlib
@@ -11,5 +12,11 @@ IV  = '1234567812345678'
 def PasswordEncrypt(pwd):
     return base64.b64encode( AES.new(KEY, AES.MODE_CBC, IV).encrypt( PKCS7Encoder().encode(pwd) ) )
 
+def PasswordDecrypt(pwd):
+    return PKCS7Encoder().decode( AES.new(KEY, AES.MODE_CBC, IV).decrypt( base64.b64decode(pwd) ) )
+
 if __name__ == '__main__':
-    print PasswordEncrypt('123456')
+    e = PasswordEncrypt('123456')
+    print e
+    d = PasswordDecrypt(e)
+    print d
